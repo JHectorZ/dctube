@@ -1,5 +1,6 @@
 import pytube 
 import argparse
+import os
 
 
 #dctube link video -q high -p ~/download
@@ -16,14 +17,26 @@ class dctube():
         self.pathd = pathd
 
 
-    def download(self):
+    def overwriter(self):
 
+        for i in os.listdir(self.pathd):
+
+            if i == str(pytube.YouTube(self.link).title):
+                self.asw_overwirte = input('\nYou want to overwrite the file named? (y/n):').lower()
+            
+            if self.asw_overwirte == 'n':
+                print('[-] There was no change!')
+                return 
+    
+
+    def download(self):
+        
         if self.type == 'song':
             pytube.YouTube(self.link).streams.get_audio_only().download(self.pathd)
 
 
         elif self.type == 'video':
-            
+
             if self.quality == 'high' or self.quality == 'default':
                 pytube.YouTube(self.link).streams.get_highest_resolution().download(self.pathd)
 
@@ -36,14 +49,16 @@ class dctube():
             else:
                 print('[-] Quality error')
 
-
         else:
             print('[-] Type error')
 
 
 
 if __name__ == '__main__':
-    
+
+    if os.path.exists('download') == False:
+        os.makedirs('download')
+
     aft = argparse.ArgumentParser()
     aft.add_argument('link', type = str, help = 'youtube link')
     aft.add_argument('type', type = str, help = 'song or video')
@@ -51,7 +66,8 @@ if __name__ == '__main__':
     aft.add_argument('-p', type = str, help = 'save path, default: /download', default = 'download/')
     argu = aft.parse_args()
 
-
-    dctube(argu.link, argu.type, argu.q, argu.p).download()
+    dctube_p = dctube(argu.link, argu.type, argu.q, argu.p)
+    dctube_p.overwriter()
+    dctube_p.download()
 
 
