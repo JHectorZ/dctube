@@ -6,7 +6,7 @@ you can get it with https://aur.archlinux.org/python-pytube.git
 
 This will be the structure to run:
 
-python index.py <link> <type> -q <quality (optional)> -p <path (optional)>
+python index.py <link> <type> -q <quality (optional)> 
 
 example:
   python index.py https://www.youtube.com/watch?v=B9RgougnhiE video 
@@ -15,8 +15,7 @@ example:
   
   python index.py https://www.youtube.com/watch?v=B9RgougnhiE video -q low
   
-  python index.py https://www.youtube.com/watch?v=B9RgougnhiE video -q low -p ~/download
-  
+ 
   
 This is provisional in what will be done in package for linux in future commits!!
   
